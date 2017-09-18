@@ -6,13 +6,20 @@
 </head>
 <body>
 	<script>
-		var x = 12345,
-				y = 6789;
+		var x = 111111111111111111,
+				y = 22222222222222222222;
+		var it = 0;
+		var fixx = 0;
 		function kara(x,y) {
+			it+=1;
 			var base, a, b, c, d, k0, k1, k2;
 			(x+'').length < (y+'').length ? y = [x, x = y][0] : null; //make y lower
+			let n = Math.min(('' + x).length, ('' + y).length);
+			if (n<=1) return x * y;
 			
-			base = Math.pow(10, (y+'').length-1);
+			base = Math.pow(10, Math.floor((y+'').length/2));
+			//var base2 = Math.pow(10, 2*Math.floor((y+'').length/2));
+			
 			a = Math.floor(x/base);
 			b = x % base;
 			c = Math.floor(y/base);
@@ -22,11 +29,55 @@
 			k2 = k0 + k1 - (b-a) * (d-c);
 			
 			
-			console.log(x,y, 'base = '+base, 'a = '+a, 'b = '+b, 'c = '+c, 'd = '+d, 'k0 = '+k0, 'k1 = '+k1, 'k2 = '+k2);
 			
+		//	var kk = toFix(x*y);
+		//	var res = k1 * base * base + k2 * base + k0;
+			return 				kara(a,c) * base*base + base * (kara(b, d) +  kara(a, c) - (b-a)* (d-c)) + kara(b,d) 
+			
+			console.log(321%10);
+			console.log(Math.trunc(321/10));
+			
+			console.log(x,y,'===', res, 'base = '+base, 'a = '+a, 'b = '+b, 'c = '+c, 'd = '+d, 'k0 = '+k0, 'k1 = '+k1, 'k2 = '+k2);
 			
 		}
-		kara(x,y);
+		
+		
+	
+		
+		
+		console.log(kara(x,y), it, fixx);;
+	
+		
+		/*
+		2469135802469135799975308641975308642
+		*/
+		
+		
+	/*	'439265893465876578346584325', '5837942653434596'),
+	
+	2564409095663499882462284266444400442046426 
+	2564409095663498076999916945221826386307700
+		*/
+		
+		//x*y 25642241436720665000
+		//res 25642241436720665000
+		//res 25642241362720666000
+		
+		// resN 3951387333720664600 
+		// xy   3951387333720664600 
+		//2564224144126429540528307700
+		// 43923423584325', '58379423434596'), 
+		//2564224144126429666664082024
+		//2564224144126429540528307700
+		//2564224144126429802406640466 
+		//2564224144126429802406640466
+		//			 2.564224144126429e+27
+			//  	 2.564224144126429
+		// res = 2.564224144126429e+27
+		// gist  2.5642241441264293e+27
+		
+		
+		
 		
 	</script>
 </body>
