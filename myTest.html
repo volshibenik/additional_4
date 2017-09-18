@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Product testing</title>
+</head>
+<body>
+	<script>
+		var x = 12345,
+				y = 6789;
+		function kara(x,y) {
+			var base, a, b, c, d, k0, k1, k2;
+			(x+'').length < (y+'').length ? y = [x, x = y][0] : null; //make y lower
+			
+			base = Math.pow(10, (y+'').length-1);
+			a = Math.floor(x/base);
+			b = x % base;
+			c = Math.floor(y/base);
+			d = y % base;
+			k0 = b * d;
+			k1 = a * c;
+			k2 = k0 + k1 - (b-a) * (d-c);
+			
+			
+			console.log(x,y, 'base = '+base, 'a = '+a, 'b = '+b, 'c = '+c, 'd = '+d, 'k0 = '+k0, 'k1 = '+k1, 'k2 = '+k2);
+			
+			
+		}
+		kara(x,y);
+		
+	</script>
+</body>
+</html>
