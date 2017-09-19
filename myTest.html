@@ -6,16 +6,18 @@
 </head>
 <body>
 	<script>
-		var x = 111111111111111111,
-				y = 22222222222222222222;
+		var x ='76095476904769456798433465783',
+		//		329568934658432659586', '58379426534596'),
+				y ='32986584375683268326587346582436583456';
 		var it = 0;
 		var fixx = 0;
 		function kara(x,y) {
+
 			it+=1;
 			var base, a, b, c, d, k0, k1, k2;
 			(x+'').length < (y+'').length ? y = [x, x = y][0] : null; //make y lower
 			let n = Math.min(('' + x).length, ('' + y).length);
-			if (n<=1) return x * y;
+			if (n<=10) return x * y;
 			
 			base = Math.pow(10, Math.floor((y+'').length/2));
 			//var base2 = Math.pow(10, 2*Math.floor((y+'').length/2));
@@ -41,41 +43,117 @@
 			
 		}
 		
+		function toFix(i){
+			var str='';
+			do{
+				let a = i%10;
+				i=Math.trunc(i/10);
+				str = a+str;
+			}while(i>0)
+				return str;
+		}
 		
-	
+		
+		function arrify (str) {
+			var arr = [];
+			for (var i = 0; i < str.length; i++) {
+				arr.push(str[i]);
+			}
+			return arr;
+		}
 		
 		
-		console.log(kara(x,y), it, fixx);;
-	
+		function resultLength(arr1,arr2) {
+			var i = 1;
+			
+			while(i<5) {
+				
+				var firstProd = arr1.join('').slice(0,i) * arr2.join('').slice(0,i),
+						powerP = Math.pow(10,(2*i-1)); 
+				
+				if (firstProd < (powerP - powerP/10)) {
+					
+					if (i === 1 && firstProd >5) {
+						i++
+					} else 	return arr1.length+arr2.length - 1;
+					
+				}else if (firstProd > (powerP - powerP/10) && firstProd < powerP) {
+					
+					i++;
+					
+				}else if (firstProd >= powerP)  {
+					
+					return arr1.length+arr2.length;
+					
+				}
+				
+			}
+			return arr1.length+arr2.length - 1;
+		}
 		
-		/*
-		2469135802469135799975308641975308642
-		*/
+		function multiply(str1, str2) {
+			
+			var arr1 = arrify(str1),
+					arr2 = arrify(str2),
+					resultArr = [];
+
+			for (var l = 0; l < resultLength(arr1,arr2); l++) {
+				resultArr[l] = 0;
+			}
+			
+			var product = 0,
+					memo = 0,
+					memo2 = 0;
+
+			for (var i = arr1.length-1; i >= 0; i--) {
+
+				for (var j = arr2.length-1; j >= 0; j--) {
+
+					product = arr1[i]*arr2[j];
+					product += memo;
+
+					if (product >= 10) {
+
+						memo = Math.floor(product/10);
+						product -= (memo*10);
+
+					}	else 	{memo = 0;}
+
+					resultArr[i+j]+= product;
+
+					if (resultArr[i+j]>=10) {
+
+						memo2=Math.floor(resultArr[i+j]/10);
+						resultArr[i+j] -= memo2*10;
+						memo+=memo2;
+
+					}
+
+					if (j==0 && memo !==0) {
+						
+						if (i===0) {
+							
+							resultArr.unshift(memo);
+							memo = 0;
+							resultArr.pop();
+							
+						}else {
+							
+							resultArr[i+j-1]+=memo;
+							memo=0;
+							
+						}
+					}
+				}
+			}
+
+
+			console.log(memo);
+			return resultArr;
+		}
 		
-		
-	/*	'439265893465876578346584325', '5837942653434596'),
-	
-	2564409095663499882462284266444400442046426 
-	2564409095663498076999916945221826386307700
-		*/
-		
-		//x*y 25642241436720665000
-		//res 25642241436720665000
-		//res 25642241362720666000
-		
-		// resN 3951387333720664600 
-		// xy   3951387333720664600 
-		//2564224144126429540528307700
-		// 43923423584325', '58379423434596'), 
-		//2564224144126429666664082024
-		//2564224144126429540528307700
-		//2564224144126429802406640466 
-		//2564224144126429802406640466
-		//			 2.564224144126429e+27
-			//  	 2.564224144126429
-		// res = 2.564224144126429e+27
-		// gist  2.5642241441264293e+27
-		
+		console.log(multiply(arrify(x),arrify(y)));
+	//	2510129869527035155770030793336098200454537680672361781583599886048
 		
 		
 		
